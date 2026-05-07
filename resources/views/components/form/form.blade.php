@@ -1,7 +1,11 @@
-    <div class="bg-white/60 p-10 rounded-lg shadows-lg w-full max-w-md mx-auto mt-40">
+@props([
+    "title" => '' 
+]);
+
+<div class="bg-white/60 p-10 rounded-lg shadows-lg w-full max-w-md mx-auto mt-40">
         <h1 class="text-[32px] text-center">{{ $title }}</h1>
         <p class="text-[10px] text-center !text-gray-400 mb-5">Please fill in the form below to {{ strtolower($title) }}</p>
-        <form action="#" method="POST">
+        <form action="{{ route(strtolower($title)) }}" method="POST">
             @csrf
             
             <div class="flex flex-col gap-5">

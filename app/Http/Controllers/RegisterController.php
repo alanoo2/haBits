@@ -10,4 +10,12 @@ class RegisterController extends Controller
     {
         return view('auth.register');
     }
+
+    public function store(){
+        # $data = request()->all();
+
+        # session()->push();
+
+        return redirect('/');
+    }
 }
