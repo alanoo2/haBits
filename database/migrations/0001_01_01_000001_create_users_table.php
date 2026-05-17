@@ -19,9 +19,10 @@ return new class extends Migration
             $table->string('password');
             $table->timestamp('created_date')->useCurrent();
             $table->string('role')->default('user');
-            $table->string('personality')->nullable();
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreignId('personality_id')->nullable()->constrained('personalities')->onDelete('restrict');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
