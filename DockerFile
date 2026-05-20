@@ -1,20 +1,37 @@
 FROM php:8.4-cli
 
+# 1. Instalar dependencias del sistema y limpiar caché para ahorrar espacio
 RUN apt-get update && apt-get install -y \
-    git unzip curl libzip-dev zip nodejs npm \
-    && docker-php-ext-install zip pdo pdo_mysql
+    git \
+    unzip \
+    curl \
+    libzip-dev \
+    zip \
+    nodejs \
+    npm \
+    && rm -rf /var/lib/apt/lists/*
 
+# 2. Instalar extensiones de PHP necesarias para Laravel
+RUN docker-php-ext-install zip pdo pdo_mysql
+
+# 3. Traer Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+# 4. Establecer el directorio de trabajo
 WORKDIR /app
 
+# 5. Copiar todo tu código al contenedor
 COPY . .
 
+# 6. Instalar dependencias del backend (Laravel)
 RUN composer install --optimize-autoloader --no-interaction
 
+# 7. Instalar dependencias del frontend y compilar (Vite/Mix)
 RUN npm install
 RUN npm run build
 
+# 8. Exponer el puerto
 EXPOSE 8080
 
-CMD php artisan serve --host=0.0.0.0 --port=8080
+# 9. Iniciar el servidor (formato correcto de CMD para Docker)
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]
