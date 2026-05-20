@@ -23,7 +23,7 @@ class SessionController extends Controller
         if (Auth::attempt($user) ){
             $request->session()->regenerate();
 
-            return redirect('/');
+            return redirect('/')->with('welcome', false);
         }
 
         return back()->withErrors([

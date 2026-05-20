@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             PersonalitySeeder::class,
+            UserSeeder::class,
+            AchievementsSeeder::class
         ]);
 
         User::factory()->create([

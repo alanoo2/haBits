@@ -24,6 +24,22 @@ class User extends Authenticatable
         'personality_id',
     ];
 
+    public function achievements()
+    {
+        return $this->belongsToMany(Achievement::class, 'achievement_user')
+                    ->withPivot('unlocked', 'achieved_at');
+    }
+
+    public function personality()
+    {
+        return $this->belongsTo(Personality::class);
+    }
+
+        public function habits()
+    {
+        return $this->hasMany(Habits::class, 'user_id');
+    }
+
     /**
      * Get the attributes that should be cast.
      *

@@ -30,40 +30,34 @@ class RegisterController extends Controller
             'password' => $request->password
         ]);
 
-        $response = Http::timeout(10)->post(config('services.fastapi.url') . '/predict', [
-            'EXT10' => $request->EXT10,
-            'EXT9'  => $request->EXT9,
-            'EXT3'  => $request->EXT3,
-            'EST3'  => $request->EST3,
-            'EST5'  => $request->EST5,
-            'EST10' => $request->EST10,
-            'AGR1'  => $request->AGR1,
-            'AGR3'  => $request->AGR3,
-            'AGR6'  => $request->AGR6,
-            'CSN2'  => $request->CSN2,
-            'CSN7'  => $request->CSN7,
-            'CSN8'  => $request->CSN8,
-            'OPN6'  => $request->OPN6,
-            'OPN2'  => $request->OPN2,
-            'OPN7'  => $request->OPN7,
-        ]);
+        $EXT_punt = ($request->EXT10 + $request->EXT9 + $request->EXT3) / 3;
+        $EST_punt = ($request->EST3 + $request->EST5 + $request->EST10) / 3;
+        $AGR_punt = ($request->AGR1 + $request->AGR3 + $request->AGR6) / 3;
+        $CSN_punt = ($request->CSN2 + $request->CSN7 + $request->CSN8) / 3;
+        $OPN_punt = ($request->OPN6 + $request->OPN2 + $request->OPN7) / 3;
 
-        $personalityMap = [
-            'OPN' => 'Openness',
-            'CSN' => 'Conscientiousness',
-            'EXT' => 'Extraversion',
-            'AGR' => 'Agreeableness',
-            'EST' => 'Neuroticism',
-        ];
+        $personality = array_search(max([$OPN_punt, $CSN_punt, $EXT_punt, $AGR_punt, $EST_punt]), [$OPN_punt, $CSN_punt, $EXT_punt, $AGR_punt, $EST_punt] );
 
-        $data = $response->json(); // esto devuelve "EXT" directamente
-        $personalityId = Personality::where('name', $personalityMap[$data])->value('id');
-
-        // 3. Guardar personalidad en el usuario
-        $user->update(['personality_id' => $personalityId]);
+        switch ($personality) {
+            case 0:
+                $user->update(['personality_id' => 1]);
+                break;
+            case 1:
+                $user->update(['personality_id' => 2]);
+                break;
+            case 2:
+                $user->update(['personality_id' => 3]);
+                break;
+            case 3:
+                $user->update(['personality_id' => 4]);
+                break;
+            case 4:
+                $user->update(['personality_id' => 5]);
+                break;
+        }
 
         Auth::login($user);
 
-        return redirect('/');
+        return redirect('/')->with('welcome', true);
     }
 }

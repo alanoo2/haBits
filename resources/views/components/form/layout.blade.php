@@ -6,7 +6,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $title }}</title>
     @vite('resources/css/app.css')
@@ -15,9 +14,11 @@
 <body>
 
     <!-- <x-nav/> -->
-    <body  style="background-image: url('{{ asset('img/main-bg.png') }}');">
+    <body>
+        <video class="video-bg" autoplay muted loop>
+            <source src="{{ asset('video/bg_login.mp4') }}" type="video/mp4">  
+        </video>
         {{ $slot }}
-        <img src="" alt="">
     </body>
 
    <!-- <footer class="flex bg-black text-white p-3 px-20 position absolute bottom-0 w-full justify-between content-center items-center">
