@@ -2,7 +2,7 @@ FROM php:8.4-fpm
 
 # Instalar dependencias
 RUN apt-get update && apt-get install -y \
-    git curl zip unzip nginx supervisor \
+    git curl zip unzip nginx supervisor nodejs npm \
     libpng-dev libonig-dev libxml2-dev \
     && docker-php-ext-install pdo pdo_mysql mbstring xml \
     && apt-get clean
@@ -14,8 +14,11 @@ WORKDIR /var/www/html
 
 COPY . .
 
-RUN composer install --optimize-autoloader --no-dev \
-    && chown -R www-data:www-data storage bootstrap/cache
+RUN composer install --optimize-autoloader --no-dev
+
+RUN npm install && npm run build
+
+RUN chown -R www-data:www-data storage bootstrap/cache
 
 EXPOSE 8080
 
