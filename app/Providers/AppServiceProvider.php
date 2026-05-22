@@ -27,6 +27,6 @@ class AppServiceProvider extends ServiceProvider
         });
 
         // comentar en local
-        \Illuminate\Support\Facades\URL::forceScheme('https');
+      //  \Illuminate\Support\Facades\URL::forceScheme('https');
     }
 }

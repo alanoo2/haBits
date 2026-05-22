@@ -1,5 +1,3 @@
-<?xml version="1.0" ?>
-
 <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
 <svg fill="#FFF" class="w-10" viewBox="0 0 400 400" id="Trash" version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 
