@@ -26,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
             return $user->id === $habit->user_id;
         });
 
-       // \Illuminate\Support\Facades\URL::forceScheme('https');
+        // comentar en local
+        \Illuminate\Support\Facades\URL::forceScheme('https');
     }
 }
