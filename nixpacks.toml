@@ -1,3 +1,0 @@
-[phases.setup]
-nixPkgs = ["php84", "php84Packages.composer", "php84Extensions.pdo_mysql", "php84Extensions.mbstring", "php84Extensions.xml"]
-aptPkgs = ["nano"]
