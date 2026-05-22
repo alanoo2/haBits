@@ -42,7 +42,7 @@ class AdminController extends Controller
             'email' => ['required', 'email', 'unique:users,email,' . $user->id],
         ]);
         $user->update($validated);
-        return redirect(route('admin.update'))->with('success', 'User updated!');
+        return redirect(route('admin'))->with('success', 'User updated!');
     }
 
     public function destroy(User $user)

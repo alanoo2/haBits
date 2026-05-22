@@ -25,5 +25,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('modify-habit', function ($user, Habits $habit) {
             return $user->id === $habit->user_id;
         });
+
+       // \Illuminate\Support\Facades\URL::forceScheme('https');
     }
 }
